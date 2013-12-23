@@ -14,11 +14,13 @@ module Paperclip
           end
           unless @options[:url].to_s.match(/^:public_url$/)
             @options[:path]  = @options[:path].gsub(/:url/, @options[:url]).gsub(/^:rails_root\/public\/system\//, '')
-            @options[:url]   = ':public_url'
+            @options[:url]   = ':etbd_public_url'
           end
-          Paperclip.interpolates(:public_url) do |attachment, style|
-            base.instance_eval do public_url style end
+
+          Paperclip.interpolates(:etbd_public_url) do |attachment, style|
+            attachment.public_url(style)
           end unless Paperclip::Interpolations.respond_to? :public_url
+
         end
       end
       
