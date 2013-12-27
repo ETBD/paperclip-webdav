@@ -56,13 +56,13 @@ module Paperclip
         primary_server.get_file path(style), local_dest_path
       end
       
-      private
-
       def public_url style = default_style
         @options[:public_url] ||= URI.parse(@options[:webdav_servers].first[:url])
         URI.join(@options[:public_url], path(style)).to_s
       end
-      
+     
+      private
+ 
       def servers
         @webdav_servers ||= begin
           servers = []
