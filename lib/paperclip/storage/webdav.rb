@@ -58,7 +58,10 @@ module Paperclip
       
       def public_url style = default_style
         @options[:public_url] ||= URI.parse(@options[:webdav_servers].first[:url])
-        URI.join(@options[:public_url], path(style)).to_s
+
+        candidate = @options[:public_url]
+        candidate.respond_to?(:call) ? candidate.call(path(style)) : URI.join(@options[:public_url], path(style)).to_s
+
       end
      
       private
