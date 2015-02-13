@@ -1,10 +1,11 @@
 require "paperclip"
 require "paperclip/storage/webdav/server"
+require "paperclip/patches/adapter"
 
 module Paperclip
   module Storage
     module Webdav
-      def self.extended base        
+      def self.extended base
         base.instance_eval do
           if @options[:webdav_servers].blank?
             raise "Webdav servers not set."
@@ -23,7 +24,7 @@ module Paperclip
 
         end
       end
-      
+
       def exists? style_name = default_style
         if original_filename
           primary_server.file_exists? path(style_name)
@@ -55,7 +56,7 @@ module Paperclip
       def copy_to_local_file style, local_dest_path
         primary_server.get_file path(style), local_dest_path
       end
-      
+
       def public_url style = default_style
         @options[:public_url] ||= URI.parse(@options[:webdav_servers].first[:url])
 
@@ -63,9 +64,9 @@ module Paperclip
         candidate.respond_to?(:call) ? candidate.call(path(style)) : URI.join(@options[:public_url], path(style)).to_s
 
       end
-     
+
       private
- 
+
       def servers
         @webdav_servers ||= begin
           servers = []
@@ -75,7 +76,7 @@ module Paperclip
           servers
         end
       end
-      
+
       def primary_server
         servers.first
       end
