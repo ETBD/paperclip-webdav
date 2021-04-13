@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency "paperclip", '~>4.0'
+  gem.add_dependency "paperclip", '~>5.0'
   gem.add_dependency "webdav-client"
 
   gem.add_development_dependency "rspec"
